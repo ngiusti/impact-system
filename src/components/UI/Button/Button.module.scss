@@ -1,0 +1,19 @@
+@import "../../../styles/variables.module.scss";
+
+.Button {
+    background-color: $orange;
+    color: $white;
+    padding: 2vw;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0px 5px 10px 0px black;
+    font-family: inherit;
+    transition: all 0.5s;
+    font-size: 3vw;
+    text-transform: uppercase;
+
+    &:active {
+        color: $orange;
+        background-color: $white;
+    }
+}
