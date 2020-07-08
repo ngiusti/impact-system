@@ -1,0 +1,36 @@
+@import '../../../styles/variables.module.scss';
+
+.Clip {
+    width:90%;
+    margin: 2% 0;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    background-color: $grey;
+    padding: 2% 2% ;
+    border-radius: 10px;
+}
+
+.ShotCounter {
+    position: absolute;
+    right: -10%;
+    font-size: 2.5vw;
+    transform: translateY(-50%);
+    top: 50%;
+}
+
+.BulletWrap {
+    border: solid $orange 2px;
+    background-color: $darkorange;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5vw;
+    height: 2.5vw;
+}
+
+.Bullet {
+    width: 50%;
+    height: auto;
+}

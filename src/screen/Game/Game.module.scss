@@ -1,0 +1,91 @@
+@import '../../styles/variables.module.scss';
+
+.GameScreen {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.TargetProgressWrap {
+    width: 40%;
+    margin: 2vw;
+}
+
+.TargetWrap {
+    width: 100%;
+    border: 2vw solid $grey;
+    border-radius: 10px;
+}
+
+.Target {
+    width: 100%;
+}
+
+.InfoWrap {
+    width: 60%;
+    padding: 3% 2%;
+}
+
+.GameName {
+    font-size: 4vw;
+    margin-bottom: 2vw;
+}
+
+.PlayerWrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: $grey;
+    border: solid 3px $orange;
+    flex: 1;
+}
+
+.PlayerActive {
+    color: $white;
+    background-color: $orange;
+    border: solid 3px $orange;
+    font-size: 2vw;
+}
+
+.PlayersWrap {
+    background-color: $white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 10vh;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.Something {
+    background-color: $white;
+    color: $grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 2% 0;
+    height: 30vh;
+    border-radius: 10px;
+}
+
+.Button {
+    width: 30%;
+    padding: 2%;
+    font-size: 1vw;
+    margin: 2%
+}
+
+.NextBtn {
+
+}
+
+.MissedBtn {
+    background-color: $white;
+    color: $orange;
+    transition: all 0.5s;
+    &:active {
+        background-color: $orange;
+        color: $white;
+    }
+}
