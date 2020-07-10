@@ -19,7 +19,7 @@
     top: 50%;
 }
 
-.BulletWrap {
+.Bullet {
     border: solid $orange 2px;
     background-color: $darkorange;
     border-radius: 50%;
@@ -30,7 +30,7 @@
     height: 2.5vw;
 }
 
-.Bullet {
-    width: 50%;
-    height: auto;
+.Fired {
+    border: solid $black 2px;
+    background-color: $grey;
 }

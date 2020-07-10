@@ -4,6 +4,13 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+}
+
+.ShotsWrap {
+    background-color: $orange;
+    box-shadow: 0px 0px 10px 0px black;
+    border-radius: 10px;
 }
 
 .TargetProgressWrap {
@@ -13,6 +20,8 @@
 
 .TargetWrap {
     width: 100%;
+    box-shadow: 0px 0px 10px 0px black;
+    margin: 5% 0;
     border: 2vw solid $grey;
     border-radius: 10px;
 }
@@ -70,7 +79,7 @@
 }
 
 .Button {
-    width: 30%;
+    width: 25%;
     padding: 2%;
     font-size: 1vw;
     margin: 2%
@@ -80,7 +89,7 @@
 
 }
 
-.MissedBtn {
+.whiteBtn {
     background-color: $white;
     color: $orange;
     transition: all 0.5s;

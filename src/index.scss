@@ -74,3 +74,14 @@ code {
     monospace;
 }
 
+.react-tabs__tab{
+  padding: 2vw;
+  border-radius: 20px 20px 0 0;
+  transition: all 0.5s;
+}
+
+.react-tabs__tab--selected {
+  background-color: $white;
+  color: $grey;
+  box-shadow: inset 0px -2px 4px 0px black;
+}

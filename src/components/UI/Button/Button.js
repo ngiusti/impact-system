@@ -6,7 +6,6 @@ const button = (props) => (
     <Link to={props.linkTo}>
         <button className={[classes.Button, props.BtnStyles].join(' ')} onClick={props.clicked}>
             {props.children}
-            {console.log(props)}
         </button>
     </Link>
 )
