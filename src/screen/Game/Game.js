@@ -8,7 +8,7 @@ import Shots from '../../components/GameParts/Shots/Shots'
 import classes from './Game.module.scss'
 
 export default class Game extends Component {
-
+    
     state = {
         shots: 10,
         shotsRemaining: 10,
@@ -17,24 +17,36 @@ export default class Game extends Component {
                 name: "Player Long Name",
                 score: 300,
                 active: true,
+                time: 0,
             },
             {
                 name: "Player Long Name2",
                 score: 200,
                 active: false,
-
+                time: 0,
             },
             {
                 name: "Player Long Name3",
                 score: 100,
                 active: false,
+                time: 0,
             }
-        ]
+        ],
+        timer: 0, 
     }
 
     componentDidMount() {
-        console.log('hello from Game')
+
     }
+
+    getSeconds  = () => {
+        return ('0' + this.state.timer % 60).slice(-2);
+    }
+
+    getMin  = () => {
+        return Math.floor(this.state.timer / 60);
+    }
+
 
     handleShot = () => {
         if(this.state.shotsRemaining > 0) {
@@ -47,9 +59,40 @@ export default class Game extends Component {
         }
     }
 
+    handleStart = () => {
+        var _this = this
+        if(this.incrementer){
+            return;
+        }else {
+            this.incrementer = setInterval(() => {
+                _this.setState({
+                    timer: _this.state.timer + 1
+                }) 
+             }, 1000);
+        }
+    }
+
+    handleStop = () => {
+        clearInterval(this.incrementer);
+    }
+
+    
+
     handleNextPlayer = () => {
-        
-        console.log(this.state.players)
+        this.handleStop();
+        let playerList = this.state.players
+
+        for (let index in playerList) {
+            if (index == playerList.length - 1){
+                alert('done')
+                break;
+            }
+            if(playerList[index].active === true  && index !== playerList.length-1){
+                playerList[index] = {...playerList[index], active: !playerList[index].active}
+                playerList[parseInt(index) + 1] = {...playerList[parseInt(index) + 1], active: !playerList[parseInt(index) + 1].active}
+                break;
+            }
+        }
     }
 
     render() {
@@ -60,7 +103,7 @@ export default class Game extends Component {
             <div className={classes.GameScreen}>
                 <div className={classes.TargetProgressWrap}>
                     <div>
-                        <h2 className={classes.GameName}>Timer: 5:00</h2>
+                        <h2 className={classes.GameName}>Timer: {this.getMin()}:{this.getSeconds()}</h2>
                     </div>
                     <div className={classes.TargetWrap}>
                         <img className={classes.Target} src={Target} alt="Target" />
@@ -84,12 +127,13 @@ export default class Game extends Component {
                         <h2>Block of something!</h2>
                     </div>
                     <div>
+                        <Button BtnStyles={[classes.Button, classes.startBtn].join(' ')} clicked={this.handleStart}>Start</Button>
                         <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.handleShot}>Missed Shot</Button>
                         <Button BtnStyles={[classes.Button, classes.NextBtn].join(' ')} clicked={this.handleShot}>Next Shot</Button>
-                        <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.handleNextPlayer}>Next Player</Button>
                     </div>
-                    <hr style={{ backgroundColor: 'white    '}}/>
+                    <hr style={{ backgroundColor: 'white'}}/>
                     <div>
+                        <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.handleNextPlayer}>Next Player</Button>
                         <Button BtnStyles={classes.Button} linkTo="/GameSelect">New Game</Button>
                         <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} linkTo="/Score">End Game</Button>
                     </div>
