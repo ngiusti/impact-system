@@ -66,16 +66,22 @@
     margin: 0 auto;
 }
 
-.Something {
+.playerCard {
     background-color: $white;
     color: $grey;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     width: 100%;
     margin: 2% 0;
     height: 30vh;
     border-radius: 10px;
+}
+
+.playerInfo {
+    margin: 2%;
+    font-size: 3vw;
 }
 
 .Button {

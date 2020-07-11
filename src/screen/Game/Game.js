@@ -32,19 +32,23 @@ export default class Game extends Component {
                 time: 0,
             }
         ],
-        timer: 0, 
+        timer: 0,
     }
 
     componentDidMount() {
 
     }
 
-    getSeconds  = () => {
-        return ('0' + this.state.timer % 60).slice(-2);
+    componentWillUpdate() {
+        
     }
 
-    getMin  = () => {
-        return Math.floor(this.state.timer / 60);
+    getSeconds  = (time) => {
+        return ('0' + time % 60).slice(-2);
+    }
+
+    getMin  = (time) => {
+        return Math.floor(time / 60);
     }
 
 
@@ -73,7 +77,9 @@ export default class Game extends Component {
     }
 
     handleStop = () => {
+        this.setState({timer: 0})
         clearInterval(this.incrementer);
+        this.incrementer = null ;
     }
 
     
@@ -81,29 +87,38 @@ export default class Game extends Component {
     handleNextPlayer = () => {
         this.handleStop();
         let playerList = this.state.players
-
+        this.setState({shotsRemaining: this.state.shots})
         for (let index in playerList) {
             if (index == playerList.length - 1){
                 alert('done')
+                playerList[index] = {...playerList[index], time: this.state.timer}
                 break;
             }
             if(playerList[index].active === true  && index !== playerList.length-1){
                 playerList[index] = {...playerList[index], active: !playerList[index].active}
+                playerList[index] = {...playerList[index], time: this.state.timer}
                 playerList[parseInt(index) + 1] = {...playerList[parseInt(index) + 1], active: !playerList[parseInt(index) + 1].active}
                 break;
             }
         }
+        console.log(this.state)
     }
 
     render() {
-
-        
+        let playerList = this.state.players
+        let currentPlayer = {}
+        for (let index in playerList) {
+            if(playerList[index].active === true  && index !== playerList.length-1){
+                currentPlayer = playerList[index]
+                break;
+            }
+        }
 
         return (
             <div className={classes.GameScreen}>
                 <div className={classes.TargetProgressWrap}>
                     <div>
-                        <h2 className={classes.GameName}>Timer: {this.getMin()}:{this.getSeconds()}</h2>
+                        <h2 className={classes.GameName}>Timer: {this.getMin(this.state.timer)}:{this.getSeconds(this.state.timer)}</h2>
                     </div>
                     <div className={classes.TargetWrap}>
                         <img className={classes.Target} src={Target} alt="Target" />
@@ -123,13 +138,15 @@ export default class Game extends Component {
                             </div>                        
                         ))}
                     </div>
-                    <div className={classes.Something}>
-                        <h2>Block of something!</h2>
+                    <div className={classes.playerCard}>
+                        <p className={classes.playerInfo}>{currentPlayer.name}</p>
+                        <p className={classes.playerInfo}>Time: {this.getMin(currentPlayer.time)}:{this.getSeconds(currentPlayer.time)}</p>
+                        <p className={classes.playerInfo}>Score: {currentPlayer.score}</p>
                     </div>
                     <div>
                         <Button BtnStyles={[classes.Button, classes.startBtn].join(' ')} clicked={this.handleStart}>Start</Button>
-                        <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.handleShot}>Missed Shot</Button>
-                        <Button BtnStyles={[classes.Button, classes.NextBtn].join(' ')} clicked={this.handleShot}>Next Shot</Button>
+                        <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.handleShot} disabled={!this.state.timer}>Missed Shot</Button>
+                        <Button BtnStyles={[classes.Button, classes.NextBtn].join(' ')} clicked={this.handleShot} disabled={!this.state.timer}>Next Shot</Button>
                     </div>
                     <hr style={{ backgroundColor: 'white'}}/>
                     <div>

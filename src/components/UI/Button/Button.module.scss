@@ -16,5 +16,10 @@
         color: $darkorange;
         background-color: $white;
     }
+
+    &:disabled {
+        background-color: $grey;
+        color: $black;
+    }
 }
 
