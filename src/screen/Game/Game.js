@@ -33,6 +33,7 @@ export default class Game extends Component {
             }
         ],
         timer: 0,
+        gameDone: false,
     }
 
     componentDidMount() {
@@ -77,7 +78,6 @@ export default class Game extends Component {
     }
 
     handleStop = () => {
-        this.setState({timer: 0})
         clearInterval(this.incrementer);
         this.incrementer = null ;
     }
@@ -92,12 +92,14 @@ export default class Game extends Component {
             if (index == playerList.length - 1){
                 alert('done')
                 playerList[index] = {...playerList[index], time: this.state.timer}
+                this.setState({gameDone: true})
                 break;
             }
             if(playerList[index].active === true  && index !== playerList.length-1){
                 playerList[index] = {...playerList[index], active: !playerList[index].active}
                 playerList[index] = {...playerList[index], time: this.state.timer}
                 playerList[parseInt(index) + 1] = {...playerList[parseInt(index) + 1], active: !playerList[parseInt(index) + 1].active}
+                this.setState({timer: 0})
                 break;
             }
         }
@@ -117,9 +119,6 @@ export default class Game extends Component {
         return (
             <div className={classes.GameScreen}>
                 <div className={classes.TargetProgressWrap}>
-                    <div>
-                        <h2 className={classes.GameName}>Timer: {this.getMin(this.state.timer)}:{this.getSeconds(this.state.timer)}</h2>
-                    </div>
                     <div className={classes.TargetWrap}>
                         <img className={classes.Target} src={Target} alt="Target" />
                     </div>
@@ -135,22 +134,23 @@ export default class Game extends Component {
                             <div key={index} className={[classes.PlayerWrap, item.active ? classes.PlayerActive : ""].join(' ')} >
                                 <h2>{item.name}</h2>
                                 <p>Score: {item.score}</p>
+                                <p >Time: {this.getMin(item.time)}:{this.getSeconds(item.time)}</p>
                             </div>                        
                         ))}
                     </div>
                     <div className={classes.playerCard}>
                         <p className={classes.playerInfo}>{currentPlayer.name}</p>
-                        <p className={classes.playerInfo}>Time: {this.getMin(currentPlayer.time)}:{this.getSeconds(currentPlayer.time)}</p>
+                        <p className={classes.playerInfo}>Time: {this.getMin(this.state.timer)}:{this.getSeconds(this.state.timer)}</p>
                         <p className={classes.playerInfo}>Score: {currentPlayer.score}</p>
                     </div>
                     <div>
-                        <Button BtnStyles={[classes.Button, classes.startBtn].join(' ')} clicked={this.handleStart}>Start</Button>
-                        <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.handleShot} disabled={!this.state.timer}>Missed Shot</Button>
-                        <Button BtnStyles={[classes.Button, classes.NextBtn].join(' ')} clicked={this.handleShot} disabled={!this.state.timer}>Next Shot</Button>
+                        <Button BtnStyles={[classes.Button, classes.startBtn].join(' ')} clicked={this.handleStart} disabled={this.state.gameDone}>Start</Button>
+                        <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.handleShot} disabled={!this.state.timer || this.state.gameDone}>Missed Shot</Button>
+                        <Button BtnStyles={[classes.Button, classes.NextBtn].join(' ')} clicked={this.handleShot} disabled={!this.state.timer || this.state.gameDone}>Next Shot</Button>
                     </div>
                     <hr style={{ backgroundColor: 'white'}}/>
                     <div>
-                        <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.handleNextPlayer}>Next Player</Button>
+                        <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.handleNextPlayer} disabled={this.state.gameDone}>Next Player</Button>
                         <Button BtnStyles={classes.Button} linkTo="/GameSelect">New Game</Button>
                         <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} linkTo="/Score">End Game</Button>
                     </div>
