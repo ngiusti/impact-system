@@ -28,9 +28,12 @@
     align-items: center;
     width: 2.5vw;
     height: 2.5vw;
+    box-shadow: 2px 2px 6px 2px black;
 }
 
 .Fired {
     border: solid $black 2px;
     background-color: $grey;
+    box-shadow: none;
+
 }

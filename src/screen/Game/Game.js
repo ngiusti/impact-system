@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import Badge from '../../components/Badge/Badge'
 import Target from '../../assets/target.png'
 import Button from '../../components/UI/Button/Button'
 import Shots from '../../components/GameParts/Shots/Shots'
+import * as actionTypes from '../../store/actions'
 
 import classes from './Game.module.scss'
 
-export default class Game extends Component {
+class Game extends Component {
     
     state = {
-        shots: 10,
-        shotsRemaining: 10,
+        gameType: "Cluster Shot",
         players: [
             {
                 name: "Player Long Name",
@@ -53,17 +54,6 @@ export default class Game extends Component {
     }
 
 
-    handleShot = () => {
-        if(this.state.shotsRemaining > 0) {
-            this.setState({
-                shots: this.state.shots,
-                shotsRemaining: this.state.shotsRemaining - 1,
-            })
-        } else {
-            alert("you are out of shots")
-        }
-    }
-
     handleStart = () => {
         var _this = this
         if(this.incrementer){
@@ -82,15 +72,13 @@ export default class Game extends Component {
         this.incrementer = null ;
     }
 
-    
-
     handleNextPlayer = () => {
         this.handleStop();
+        this.props.newGame();
         let playerList = this.state.players
-        this.setState({shotsRemaining: this.state.shots})
+        this.setState({shotsRemaining: this.props.shots})
         for (let index in playerList) {
-            if (index == playerList.length - 1){
-                alert('done')
+            if (index === playerList.length - 1){
                 playerList[index] = {...playerList[index], time: this.state.timer}
                 this.setState({gameDone: true})
                 break;
@@ -116,6 +104,8 @@ export default class Game extends Component {
             }
         }
 
+        console.log(this.props)
+
         return (
             <div className={classes.GameScreen}>
                 <div className={classes.TargetProgressWrap}>
@@ -123,12 +113,12 @@ export default class Game extends Component {
                         <img className={classes.Target} src={Target} alt="Target" />
                     </div>
                     <div className={classes.ShotsWrap}>
-                        <Shots shots={this.state.shots} shotsRemaining={this.state.shotsRemaining}/>
+                        <Shots shots={this.props.shots} shotsRemaining={this.props.shotsRemaining}/>
                     </div>
                 </div>
 
                 <div className={classes.InfoWrap}>
-                    <h3 className={classes.GameName}>Cluster Shot</h3>
+                    <h3 className={classes.GameName}>{this.props.gameType}</h3>
                     <div className={classes.PlayersWrap}>
                         {this.state.players.map((item, index) => (
                             <div key={index} className={[classes.PlayerWrap, item.active ? classes.PlayerActive : ""].join(' ')} >
@@ -145,17 +135,36 @@ export default class Game extends Component {
                     </div>
                     <div>
                         <Button BtnStyles={[classes.Button, classes.startBtn].join(' ')} clicked={this.handleStart} disabled={this.state.gameDone}>Start</Button>
-                        <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.handleShot} disabled={!this.state.timer || this.state.gameDone}>Missed Shot</Button>
-                        <Button BtnStyles={[classes.Button, classes.NextBtn].join(' ')} clicked={this.handleShot} disabled={!this.state.timer || this.state.gameDone}>Next Shot</Button>
+                        <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.props.onShotsfired} disabled={!this.state.timer || this.state.gameDone}>Missed Shot</Button>
+                        <Button BtnStyles={[classes.Button, classes.NextBtn].join(' ')} clicked={this.props.onShotsfired} disabled={!this.state.timer || this.state.gameDone}>Next Shot</Button>
                     </div>
                     <hr style={{ backgroundColor: 'white'}}/>
                     <div>
                         <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.handleNextPlayer} disabled={this.state.gameDone}>Next Player</Button>
-                        <Button BtnStyles={classes.Button} linkTo="/GameSelect">New Game</Button>
-                        <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} linkTo="/Score">End Game</Button>
+                        <Button BtnStyles={classes.Button} linkTo="/GameSelect">New Session</Button>
+                        <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} linkTo="/Score">End Session</Button>
                     </div>
                 </div>
             </div>
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        shots:  state.shots,
+        shotsRemaining: state.shotsRemaining,
+        gameType: state.gameType,
+    }
+}
+
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onShotsfired: () => dispatch({type: actionTypes.SHOT_FIRED}),
+        newGame: () => dispatch({type: actionTypes.NEW_GAME})
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Game);
