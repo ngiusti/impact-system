@@ -1,7 +1,53 @@
+@import '../../styles/variables.module.scss';
+
+.TabsWrap {
+    margin: 0 10% 5%;
+}
+
 .TabTitles {
     display: flex;
-    width: 80%;
     margin: 0 auto;
     justify-content: space-evenly;
-    border-bottom: solid 4px white;
+    border-bottom: solid 4px $white;
+}
+
+.LeaderBoardWrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.PlayerName {
+    text-decoration: underline;
+    font-size: 4vw;
+    margin-bottom: 1vw;
+}
+
+.PlayerInfo {
+    flex: 1;
+    padding: 5% 0;
+    font-size: 1.75vw;
+    &:not(:last-child) {
+        border-right: solid 4px $white;
+    }
+}
+
+.PlayerStatsWrap {
+
+}
+
+.PlayerStats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4.5vw;
+}
+
+.PlayerWin {
+    background-color: $orange;
+}
+
+.Logo {
+    width: 10%;
+    margin: 1% 5%;
 }

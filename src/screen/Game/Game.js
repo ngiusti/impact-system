@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import Badge from '../../components/Badge/Badge'
 import Target from '../../assets/target.png'
 import Button from '../../components/UI/Button/Button'
 import Shots from '../../components/GameParts/Shots/Shots'
@@ -12,29 +11,9 @@ import classes from './Game.module.scss'
 class Game extends Component {
     
     state = {
-        gameType: "Cluster Shot",
-        players: [
-            {
-                name: "Player Long Name",
-                score: 300,
-                active: true,
-                time: 0,
-            },
-            {
-                name: "Player Long Name2",
-                score: 200,
-                active: false,
-                time: 0,
-            },
-            {
-                name: "Player Long Name3",
-                score: 100,
-                active: false,
-                time: 0,
-            }
-        ],
         timer: 0,
         gameDone: false,
+        roundStart: false,
     }
 
     componentDidMount() {
@@ -55,6 +34,10 @@ class Game extends Component {
 
 
     handleStart = () => {
+        this.setState({
+            roundStart: true
+        })
+        
         var _this = this
         if(this.incrementer){
             return;
@@ -67,6 +50,13 @@ class Game extends Component {
         }
     }
 
+    shotsHandler = () => {
+        this.props.onShotsfired();
+        if(this.props.shotsRemaining === 1){
+            this.handleStop();
+        }
+    }
+
     handleStop = () => {
         clearInterval(this.incrementer);
         this.incrementer = null ;
@@ -75,15 +65,19 @@ class Game extends Component {
     handleNextPlayer = () => {
         this.handleStop();
         this.props.newGame();
-        let playerList = this.state.players
+        this.setState({
+            roundStart: false
+        })
+        let playerList = this.props.players
+        console.log(playerList)
         this.setState({shotsRemaining: this.props.shots})
         for (let index in playerList) {
-            if (index === playerList.length - 1){
+            if (index == playerList.length - 1){
                 playerList[index] = {...playerList[index], time: this.state.timer}
                 this.setState({gameDone: true})
                 break;
             }
-            if(playerList[index].active === true  && index !== playerList.length-1){
+            if(playerList[index].active === true  && index != playerList.length-1){
                 playerList[index] = {...playerList[index], active: !playerList[index].active}
                 playerList[index] = {...playerList[index], time: this.state.timer}
                 playerList[parseInt(index) + 1] = {...playerList[parseInt(index) + 1], active: !playerList[parseInt(index) + 1].active}
@@ -91,11 +85,10 @@ class Game extends Component {
                 break;
             }
         }
-        console.log(this.state)
     }
 
     render() {
-        let playerList = this.state.players
+        let playerList = this.props.players
         let currentPlayer = {}
         for (let index in playerList) {
             if(playerList[index].active === true  && index !== playerList.length-1){
@@ -103,9 +96,6 @@ class Game extends Component {
                 break;
             }
         }
-
-        console.log(this.props)
-
         return (
             <div className={classes.GameScreen}>
                 <div className={classes.TargetProgressWrap}>
@@ -120,7 +110,7 @@ class Game extends Component {
                 <div className={classes.InfoWrap}>
                     <h3 className={classes.GameName}>{this.props.gameType}</h3>
                     <div className={classes.PlayersWrap}>
-                        {this.state.players.map((item, index) => (
+                        {this.props.players.map((item, index) => (
                             <div key={index} className={[classes.PlayerWrap, item.active ? classes.PlayerActive : ""].join(' ')} >
                                 <h2>{item.name}</h2>
                                 <p>Score: {item.score}</p>
@@ -129,14 +119,13 @@ class Game extends Component {
                         ))}
                     </div>
                     <div className={classes.playerCard}>
-                        <p className={classes.playerInfo}>{currentPlayer.name}</p>
+                        <p className={classes.playerScore}>Score: {currentPlayer.score}</p>
                         <p className={classes.playerInfo}>Time: {this.getMin(this.state.timer)}:{this.getSeconds(this.state.timer)}</p>
-                        <p className={classes.playerInfo}>Score: {currentPlayer.score}</p>
                     </div>
                     <div>
-                        <Button BtnStyles={[classes.Button, classes.startBtn].join(' ')} clicked={this.handleStart} disabled={this.state.gameDone}>Start</Button>
-                        <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.props.onShotsfired} disabled={!this.state.timer || this.state.gameDone}>Missed Shot</Button>
-                        <Button BtnStyles={[classes.Button, classes.NextBtn].join(' ')} clicked={this.props.onShotsfired} disabled={!this.state.timer || this.state.gameDone}>Next Shot</Button>
+                        <Button BtnStyles={[classes.Button, classes.startBtn].join(' ')} clicked={this.handleStart} disabled={this.state.gameDone || this.state.roundStart}>Start</Button>
+                        <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.shotsHandler} disabled={!this.state.timer || this.state.gameDone}>Missed Shot</Button>
+                        <Button BtnStyles={[classes.Button, classes.NextBtn].join(' ')} clicked={this.shotsHandler} disabled={!this.state.timer || this.state.gameDone}>Next Shot</Button>
                     </div>
                     <hr style={{ backgroundColor: 'white'}}/>
                     <div>
@@ -155,6 +144,7 @@ const mapStateToProps = state => {
         shots:  state.shots,
         shotsRemaining: state.shotsRemaining,
         gameType: state.gameType,
+        players: state.players
     }
 }
 

@@ -2,16 +2,9 @@ import * as actionTypes from './actions'
 
 const intialState = {
     shots: 10,
-    shotsRemaining: 10,
+    shotsRemaining: 5,
     gameType: "Cluster Shot",
-    players: [
-        {
-            name: "",
-            score: 0,
-            active: true,
-            time: 0,
-        }
-    ],
+    players: [],
 }
 
 const reducer = (state = intialState, action) => {
@@ -21,6 +14,13 @@ const reducer = (state = intialState, action) => {
                 ...state,
                 players: [...state.players, action.newPlayer]
             }
+        case actionTypes.REMOVE_PLAYER:
+            let newPlayers = state.players.slice();
+            newPlayers.splice(action.index, 1);
+            return {
+                ...state,
+                players: [newPlayers]
+            }
         case actionTypes.SELECT_GAME:
             return {
                 ...state,
@@ -29,6 +29,7 @@ const reducer = (state = intialState, action) => {
         case actionTypes.NEW_GAME: 
             return {
                 ...state,
+
                 shots: intialState.shots,
                 shotsRemaining: intialState.shotsRemaining,
             }
@@ -44,10 +45,10 @@ const reducer = (state = intialState, action) => {
                     ...state,
                     shotsRemaining: state.shotsRemaining - 1
                 }
-            } else {
-                if(state.shotsRemaining === 0){
-                    alert('done');
-                }
+            } 
+        case actionTypes.SET_TIME:
+            return{
+
             }
         default: 
             return state;
