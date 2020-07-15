@@ -1,4 +1,6 @@
 import * as actionTypes from './actions'
+import { updateObject } from './utility.js';
+
 
 const intialState = {
     shots: 10,
@@ -15,12 +17,11 @@ const reducer = (state = intialState, action) => {
                 players: [...state.players, action.newPlayer]
             }
         case actionTypes.REMOVE_PLAYER:
-            let newPlayers = state.players.slice();
-            newPlayers.splice(action.index, 1);
-            return {
-                ...state,
-                players: [newPlayers]
-            }
+            const newPlayers = state.players.filter(function(player, index){
+                return index !== action.index
+            })
+            return updateObject( state, { players: newPlayers } );
+
         case actionTypes.SELECT_GAME:
             return {
                 ...state,
