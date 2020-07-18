@@ -52,8 +52,25 @@ class Game extends Component {
 
     shotsHandler = () => {
         this.props.onShotsfired();
+        console.log(this.props.shotsRemaining)
         if(this.props.shotsRemaining === 1){
             this.handleStop();
+        }
+    }
+
+    missHandler = () => {
+        this.shotsHandler()
+        let playerList = this.props.players
+        for (let index in playerList) {
+            playerList[index] = {...playerList[index], miss: playerList[index].miss+1}
+        }
+    }
+
+    hitHandler = () => {
+        this.shotsHandler()
+        let playerList = this.props.players
+        for (let index in playerList) {
+            playerList[index] = {...playerList[index], hit: playerList[index].hit+1}
         }
     }
 
@@ -61,7 +78,7 @@ class Game extends Component {
         clearInterval(this.incrementer);
         this.incrementer = null ;
     }
-
+    
     handleNextPlayer = () => {
         this.handleStop();
         this.props.newGame();
@@ -69,7 +86,6 @@ class Game extends Component {
             roundStart: false
         })
         let playerList = this.props.players
-        console.log(playerList)
         this.setState({shotsRemaining: this.props.shots})
         for (let index in playerList) {
             if (index == playerList.length - 1){
@@ -88,6 +104,7 @@ class Game extends Component {
     }
 
     render() {
+        console.log(this.props.players);
         let playerList = this.props.players
         let currentPlayer = {}
         for (let index in playerList) {
@@ -106,7 +123,6 @@ class Game extends Component {
                         <Shots shots={this.props.shots} shotsRemaining={this.props.shotsRemaining}/>
                     </div>
                 </div>
-
                 <div className={classes.InfoWrap}>
                     <h3 className={classes.GameName}>{this.props.gameType}</h3>
                     <div className={classes.PlayersWrap}>
@@ -124,8 +140,8 @@ class Game extends Component {
                     </div>
                     <div>
                         <Button BtnStyles={[classes.Button, classes.startBtn].join(' ')} clicked={this.handleStart} disabled={this.state.gameDone || this.state.roundStart}>Start</Button>
-                        <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.shotsHandler} disabled={!this.state.timer || this.state.gameDone}>Missed Shot</Button>
-                        <Button BtnStyles={[classes.Button, classes.NextBtn].join(' ')} clicked={this.shotsHandler} disabled={!this.state.timer || this.state.gameDone}>Next Shot</Button>
+                        <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.missHandler} disabled={!this.state.timer || this.state.gameDone || this.props.shotsRemaining == 0}>Missed Shot</Button>
+                        <Button BtnStyles={[classes.Button, classes.NextBtn].join(' ')} clicked={this.hitHandler} disabled={!this.state.timer || this.state.gameDone || this.props.shotsRemaining == 0}>Next Shot</Button>
                     </div>
                     <hr style={{ backgroundColor: 'white'}}/>
                     <div>
@@ -154,6 +170,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onShotsfired: () => dispatch({type: actionTypes.SHOT_FIRED}),
         newGame: () => dispatch({type: actionTypes.NEW_GAME})
+
     }
 }
 

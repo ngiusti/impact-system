@@ -11,10 +11,10 @@ const intialState = {
 
 const reducer = (state = intialState, action) => {
     switch (action.type) {
-        case actionTypes.ADD_PLAYER:
+        case actionTypes.ADD_PLAYERS:
             return {
                 ...state,
-                players: [...state.players, action.newPlayer]
+                players: action.newPlayers
             }
         case actionTypes.REMOVE_PLAYER:
             const newPlayers = state.players.filter(function(player, index){
@@ -30,7 +30,6 @@ const reducer = (state = intialState, action) => {
         case actionTypes.NEW_GAME: 
             return {
                 ...state,
-
                 shots: intialState.shots,
                 shotsRemaining: intialState.shotsRemaining,
             }
@@ -47,6 +46,19 @@ const reducer = (state = intialState, action) => {
                     shotsRemaining: state.shotsRemaining - 1
                 }
             } 
+        case actionTypes.MISS_COUNTER:
+            return {
+                ...state,
+                players: {
+                }
+            }
+        case actionTypes.HIT_COUNTER:
+            return {
+                ...state,
+                players: {
+
+                }
+            }
         case actionTypes.SET_TIME:
             return{
 
