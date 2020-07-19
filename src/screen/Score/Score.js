@@ -16,6 +16,14 @@ class Score extends Component {
         console.log('hello from Score')
     }
 
+    getSeconds  = (time) => {
+        return ('0' + time % 60).slice(-2);
+    }
+
+    getMin  = (time) => {
+        return Math.floor(time / 60);
+    }
+
     render() {
         return (
             <div>
@@ -35,7 +43,7 @@ class Score extends Component {
                                     <h2 className={classes.PlayerName}>{item.name}</h2>
                                     <div className={classes.PlayerStatsWrap}>
                                         <h2 className={[classes.PlayerStats, classes.PlayerWin].join(' ')}>Score: <ScrollingNumber number={300}/></h2>
-                                        <h2 className={classes.PlayerStats}>Time: <ScrollingNumber number={item.time}/>:<ScrollingNumber number={12}/></h2>
+                                        <h2 className={classes.PlayerStats}>Time: <ScrollingNumber number={this.getMin(item.time)}/>:<ScrollingNumber number={this.getSeconds(item.time)}/></h2>
                                         <h2 className={classes.PlayerStats}>Hits: <ScrollingNumber number={item.hit}/></h2>
                                         <h2 className={classes.PlayerStats}>Misses: <ScrollingNumber number={item.miss}/></h2>
                                         <h2 className={classes.PlayerStats}>Bullet Spread: <ScrollingNumber number={32}/>mm</h2>

@@ -1,0 +1,64 @@
+@import "../../styles/base.module.scss";
+
+.Header {
+    font-size: 3vw;
+    margin: 2vw;
+}
+
+.Input {
+    background-color: $grey;
+    border: solid 2px $white;
+    color: $white;
+    border-radius: 10px;
+    padding: 1vw;
+    font-size: 2vw;
+}
+
+.PlayerInputWrap {
+    width: 50%;
+    margin: 4vw auto;
+    display: flex;
+    justify-content: space-around;
+    
+}
+
+.PlayersWrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.NameWrap {
+    background-color: $white;
+    width: 25%;
+    border-radius: 11px;
+    box-shadow: 0px 10px 10px 0px black;
+}
+
+.ImageWrap {
+    display: flex;
+}
+
+.Image {
+    width: 100%;
+    padding-top: 10px;
+}
+
+.Name {
+    font-size: 1.5vw;
+    border-radius:0px 0px 10px 10px;
+    color: $white;
+    background-color: $grey;
+    padding: 3vw;
+    padding: 3vw 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Button {
+    font-size: 2.25vw;
+    padding: 1vw 2vw;
+}

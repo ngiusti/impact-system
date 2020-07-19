@@ -17,7 +17,6 @@ class Game extends Component {
     }
 
     componentDidMount() {
-
     }
 
     componentWillUpdate() {
@@ -62,7 +61,9 @@ class Game extends Component {
         this.shotsHandler()
         let playerList = this.props.players
         for (let index in playerList) {
-            playerList[index] = {...playerList[index], miss: playerList[index].miss+1}
+            if(playerList[index].active === true){
+                playerList[index] = {...playerList[index], miss: playerList[index].miss+1}
+            }
         }
     }
 
@@ -70,7 +71,9 @@ class Game extends Component {
         this.shotsHandler()
         let playerList = this.props.players
         for (let index in playerList) {
-            playerList[index] = {...playerList[index], hit: playerList[index].hit+1}
+            if(playerList[index].active === true){
+                playerList[index] = {...playerList[index], hit: playerList[index].hit+1}
+            }
         }
     }
 
@@ -139,15 +142,15 @@ class Game extends Component {
                         <p className={classes.playerInfo}>Time: {this.getMin(this.state.timer)}:{this.getSeconds(this.state.timer)}</p>
                     </div>
                     <div>
-                        <Button BtnStyles={[classes.Button, classes.startBtn].join(' ')} clicked={this.handleStart} disabled={this.state.gameDone || this.state.roundStart}>Start</Button>
-                        <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.missHandler} disabled={!this.state.timer || this.state.gameDone || this.props.shotsRemaining == 0}>Missed Shot</Button>
-                        <Button BtnStyles={[classes.Button, classes.NextBtn].join(' ')} clicked={this.hitHandler} disabled={!this.state.timer || this.state.gameDone || this.props.shotsRemaining == 0}>Next Shot</Button>
+                        <Button btnStyles={[classes.Button, classes.startBtn].join(' ')} clicked={this.handleStart} disabled={this.state.gameDone || this.state.roundStart}>Start</Button>
+                        <Button btnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.missHandler} disabled={!this.state.timer || this.state.gameDone || this.props.shotsRemaining == 0}>Missed Shot</Button>
+                        <Button btnStyles={[classes.Button, classes.NextBtn].join(' ')} clicked={this.hitHandler} disabled={!this.state.timer || this.state.gameDone || this.props.shotsRemaining == 0}>Next Shot</Button>
                     </div>
                     <hr style={{ backgroundColor: 'white'}}/>
                     <div>
-                        <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.handleNextPlayer} disabled={this.state.gameDone}>Next Player</Button>
-                        <Button BtnStyles={classes.Button} linkTo="/GameSelect">New Session</Button>
-                        <Button BtnStyles={[classes.Button, classes.whiteBtn].join(' ')} linkTo="/Score">End Session</Button>
+                        <Button btnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.handleNextPlayer} disabled={this.state.gameDone}>Next Player</Button>
+                        <Button btnStyles={classes.Button} linkTo="/GameSelect">New Session</Button>
+                        <Button btnStyles={[classes.Button, classes.whiteBtn].join(' ')} linkTo="/Score">End Session</Button>
                     </div>
                 </div>
             </div>
