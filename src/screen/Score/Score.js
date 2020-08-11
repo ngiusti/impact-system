@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import {ReactComponent as HelmetLogo} from '../../assets/helmet-logo.svg';
+import * as actionTypes from '../../store/actions'
 import Badge from '../../components/Badge/Badge'
 import Button from '../../components/UI/Button/Button'
 import ScrollingNumber from '../../components/UI/ScollingNumber/ScrollingNumber'
@@ -13,7 +14,6 @@ import classes from './Score.module.scss'
 class Score extends Component {
 
     componentDidMount() {
-        console.log('hello from Score')
     }
 
     getSeconds  = (time) => {
@@ -37,20 +37,25 @@ class Score extends Component {
                             <Tab>Profile</Tab>
                         </TabList>
                         <div>
-                            <TabPanel className={classes.LeaderBoardWrap}>
-                                {this.props.players.map((item, index) => (
-                                <div className={classes.PlayerInfo}>
-                                    <h2 className={classes.PlayerName}>{item.name}</h2>
-                                    <div className={classes.PlayerStatsWrap}>
-                                        <h2 className={[classes.PlayerStats, classes.PlayerWin].join(' ')}>Score: <ScrollingNumber number={300}/></h2>
-                                        <h2 className={classes.PlayerStats}>Time: <ScrollingNumber number={this.getMin(item.time)}/>:<ScrollingNumber number={this.getSeconds(item.time)}/></h2>
-                                        <h2 className={classes.PlayerStats}>Hits: <ScrollingNumber number={item.hit}/></h2>
-                                        <h2 className={classes.PlayerStats}>Misses: <ScrollingNumber number={item.miss}/></h2>
-                                        <h2 className={classes.PlayerStats}>Bullet Spread: <ScrollingNumber number={32}/>mm</h2>
-                                        <h2 className={classes.PlayerStats}>Target Distance: <ScrollingNumber number={150}/>ft</h2>
-                                    </div>
-                                </div>                  
-                                ))}
+                            <TabPanel >
+                                <div className={classes.SectionTitleWrap}>
+                                    <h2 className={classes.SectionTitle}>Cluster Shot</h2>
+                                    <h2 className={classes.SectionTitle}>Distance:<ScrollingNumber number={150}/>ft</h2>
+                                </div>
+                                <div className={classes.LeaderBoardWrap}>
+                                    {this.props.players.map((item, index) => (
+                                    <div className={classes.PlayerInfo}>
+                                        <h2 className={classes.PlayerName}>{item.name}</h2>
+                                        <div className={classes.PlayerStatsWrap}>
+                                            <h2 className={[classes.PlayerStats].join(' ')}><span className={[classes.SymbolLocation, classes.LossCross].join(' ')}><HelmetLogo className={classes.Logo} /></span>Score: <ScrollingNumber number={300}/></h2>
+                                            <h2 className={classes.PlayerStats}><span className={[classes.SymbolLocation, classes.LossCross].join(' ')}>X</span> Time: <ScrollingNumber number={this.getMin(item.time)}/>:<ScrollingNumber number={this.getSeconds(item.time)}/></h2>
+                                            <h2 className={classes.PlayerStats}><span className={[classes.SymbolLocation, classes.LossCross].join(' ')}>X</span>Hits: <ScrollingNumber number={item.hit}/></h2>
+                                            <h2 className={classes.PlayerStats}><span className={[classes.SymbolLocation, classes.LossCross].join(' ')}>X</span>Misses: <ScrollingNumber number={item.miss}/></h2>
+                                            <h2 className={classes.PlayerStats}><span className={[classes.SymbolLocation, classes.LossCross].join(' ')}>X</span>Bullet Spread: <ScrollingNumber number={32}/>mm</h2>
+                                        </div>
+                                    </div>   
+                                    ))}  
+                                </div>            
                             </TabPanel>
                             <TabPanel>
                                 <h2>LeaderBoard Info</h2>
@@ -68,7 +73,7 @@ class Score extends Component {
 
                     </Tabs>
                 </div>
-                <Button linkTo="/GameSelect">New Session</Button>
+                <Button linkTo="/GameSelect" clicked={() => this.props.newGame()}>New Session</Button>
                 <Badge/>
             </div>
         )
@@ -81,5 +86,10 @@ const mapStateToProps = state => {
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        newGame: () => dispatch({type: actionTypes.NEW_GAME})
+    }
+}
 
-export default connect(mapStateToProps)(Score)
+export default connect(mapStateToProps, mapDispatchToProps)(Score)

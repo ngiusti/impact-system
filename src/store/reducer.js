@@ -56,7 +56,6 @@ const reducer = (state = intialState, action) => {
             return {
                 ...state,
                 players: {
-
                 }
             }
         case actionTypes.SET_TIME:

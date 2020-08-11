@@ -16,6 +16,10 @@ class GameSelect extends Component {
     }
 
     componentDidMount() {
+        if(this.props.players){
+            
+            this.setState({players: this.props.players})
+        }
     }
 
     handleInputChange(event) {
@@ -42,12 +46,9 @@ class GameSelect extends Component {
     removeHandler= (idx) => {
         var array = [...this.state.players]; // make a separate copy of the array
         if (idx !== -1) {
-            console.log('hit')
           array.splice(idx, 1);
           this.setState({players: array});
         }
-        console.log('miss')
-        console.log(this.state)
     }
 
     render() {
@@ -58,7 +59,7 @@ class GameSelect extends Component {
                     <h2 className={classes.Header}>Number of players: {this.state.players.length}</h2>
                     <div className={classes.PlayersWrap}>
                         {this.state.players.map((item, index) => (
-                            <div key={index} className={classes.NameWrap} onClick={() => this.removeHandler(index)}>
+                            <div key={index} className={classes.CardWrap} onClick={() => this.removeHandler(index)}>
                                 <div className={classes.ImageWrap}>
                                     <img className={classes.Image} src={man} alt="Man" />
                                 </div>
@@ -83,6 +84,7 @@ class GameSelect extends Component {
 const mapStateToProps = state => {
     return {
         shots: state.shots,
+        shotsRemaining: state.shotsRemaining,
         players: state.players
     }
 }

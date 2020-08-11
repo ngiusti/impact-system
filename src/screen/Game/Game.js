@@ -14,13 +14,22 @@ class Game extends Component {
         timer: 0,
         gameDone: false,
         roundStart: false,
+        shots: 0,
+        imageUrl: ""
     }
 
     componentDidMount() {
+        fetch('/data').then(res => res.json()).then(data => {
+            this.setState({shots: data.shots})
+
+        });
+        fetch('/image').then(res => res).then(image => {
+            this.setState({imageUrl: image.url})
+        });
     }
 
     componentWillUpdate() {
-        
+
     }
 
     getSeconds  = (time) => {
@@ -107,7 +116,8 @@ class Game extends Component {
     }
 
     render() {
-        console.log(this.props.players);
+        console.log(this.state.shots);
+        console.log(this.state.imageUrl);
         let playerList = this.props.players
         let currentPlayer = {}
         for (let index in playerList) {
@@ -120,7 +130,7 @@ class Game extends Component {
             <div className={classes.GameScreen}>
                 <div className={classes.TargetProgressWrap}>
                     <div className={classes.TargetWrap}>
-                        <img className={classes.Target} src={Target} alt="Target" />
+                        <img className={classes.Target} src={this.state.imageUrl} alt="Target" />
                     </div>
                     <div className={classes.ShotsWrap}>
                         <Shots shots={this.props.shots} shotsRemaining={this.props.shotsRemaining}/>
@@ -149,7 +159,7 @@ class Game extends Component {
                     <hr style={{ backgroundColor: 'white'}}/>
                     <div>
                         <Button btnStyles={[classes.Button, classes.whiteBtn].join(' ')} clicked={this.handleNextPlayer} disabled={this.state.gameDone}>Next Player</Button>
-                        <Button btnStyles={classes.Button} linkTo="/GameSelect">New Session</Button>
+                        <Button btnStyles={classes.Button} clicked={() => this.props.newGame()} linkTo="/GameSelect">New Session</Button>
                         <Button btnStyles={[classes.Button, classes.whiteBtn].join(' ')} linkTo="/Score">End Session</Button>
                     </div>
                 </div>
@@ -173,7 +183,6 @@ const mapDispatchToProps = dispatch => {
     return {
         onShotsfired: () => dispatch({type: actionTypes.SHOT_FIRED}),
         newGame: () => dispatch({type: actionTypes.NEW_GAME})
-
     }
 }
 

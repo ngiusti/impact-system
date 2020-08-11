@@ -25,7 +25,6 @@
 
 .PlayerInfo {
     flex: 1;
-    padding: 5% 0;
     font-size: 1.75vw;
     &:not(:last-child) {
         border-right: solid 4px $white;
@@ -33,14 +32,19 @@
 }
 
 .PlayerStatsWrap {
-
+    display: flex;
+    flex-direction: column;
 }
 
 .PlayerStats {
-    display: flex;
+    display: inline-flex;
+    flex-direction: row;
+    margin: 0 auto;
     align-items: center;
     justify-content: center;
-    height: 4.5vw;
+    height: 3.5vw;
+    position: relative;
+    font-size: 1.5vw;
 }
 
 .PlayerWin {
@@ -48,6 +52,28 @@
 }
 
 .Logo {
-    width: 10%;
-    margin: 1% 5%;
+    width: auto;
+    height: 3vw;
+}
+
+.SectionTitleWrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2vw;
+}
+
+.SectionTitle {
+    font-size: 3vw;
+    display: flex;
+}
+
+.SymbolLocation {
+
+}
+
+.LossCross {
+    margin-right: 10px;
+    color: darkred;
 }
