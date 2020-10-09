@@ -1,79 +1,78 @@
-@import '../../styles/variables.module.scss';
+@import "../../styles/variables.module.scss";
 
 .TabsWrap {
-    margin: 0 10% 5%;
+  margin: 0 10% 5%;
 }
 
 .TabTitles {
-    display: flex;
-    margin: 0 auto;
-    justify-content: space-evenly;
-    border-bottom: solid 4px $white;
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-evenly;
+  border-bottom: solid 4px $white;
 }
 
 .LeaderBoardWrap {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .PlayerName {
-    text-decoration: underline;
-    font-size: 4vw;
-    margin-bottom: 1vw;
+  text-decoration: underline;
+  font-size: 4vw;
+  margin-bottom: 1vw;
 }
 
 .PlayerInfo {
-    flex: 1;
-    font-size: 1.75vw;
-    &:not(:last-child) {
-        border-right: solid 4px $white;
-    }
+  flex: 1;
+  font-size: 1.75vw;
+  &:not(:last-child) {
+    border-right: solid 4px $white;
+  }
 }
 
 .PlayerStatsWrap {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .PlayerStats {
-    display: inline-flex;
-    flex-direction: row;
-    margin: 0 auto;
-    align-items: center;
-    justify-content: center;
-    height: 3.5vw;
-    position: relative;
-    font-size: 1.5vw;
+  display: inline-flex;
+  flex-direction: row;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  height: 3.5vw;
+  position: relative;
+  font-size: 1.5vw;
 }
 
 .PlayerWin {
-    background-color: $orange;
+  background-color: $orange;
 }
 
 .Logo {
-    width: auto;
-    height: 3vw;
+  width: auto;
+  height: 3vw;
 }
 
 .SectionTitleWrap {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 2vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 2vw;
 }
 
 .SectionTitle {
-    font-size: 3vw;
-    display: flex;
+  font-size: 3vw;
+  display: flex;
 }
 
 .SymbolLocation {
-
 }
 
 .LossCross {
-    margin-right: 10px;
-    color: darkred;
+  margin-right: 10px;
+  color: darkred;
 }

@@ -1,15 +1,23 @@
 import React, { Component } from 'react'
 
-export default class Login extends Component {
+import Button from '../../components/UI/button/button'
+import PlayerLogin from '../../components/player-login/player-login'
+import Slider from '../../components/UI/slider/slider'
 
-    componentDidMount() {
-        console.log('hello from Login')
-    }
+import classes from './login.module.scss'
+
+export default class Login extends Component {
 
     render() {
         return (
             <div>
-                <h1>Hello from Login</h1>
+                <div className={classes.PlayersContainer}>
+                    <PlayerLogin player={"1"}/>
+                    <PlayerLogin player={"2"}/>
+                    <PlayerLogin player={"3"}/>
+                </div>
+                <Slider title="Time" unit="Minutes"/>
+                <Button linkTo="/GameSelect" btnStyles={classes.Btn}>Get Started</Button>
             </div>
         )
     }

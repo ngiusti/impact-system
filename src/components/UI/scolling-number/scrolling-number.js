@@ -3,7 +3,7 @@ import { Spring, animated, interpolate } from "react-spring/renderprops";
 import * as d3 from 'd3-ease'
 
 
-import classes from './ScrollingNumber.module.scss'
+import classes from './scrolling-number.module.scss'
 
 export default class ScrollingNumber extends React.Component {
   constructor(props) {

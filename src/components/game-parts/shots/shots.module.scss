@@ -1,0 +1,38 @@
+@import "../../../styles/variables.module.scss";
+
+.Clip {
+  width: 90%;
+  margin: 2% 0;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  background-color: $grey;
+  padding: 2% 2%;
+  border-radius: 10px;
+}
+
+.ShotCounter {
+  position: absolute;
+  right: -10%;
+  font-size: 2.5vw;
+  transform: translateY(-50%);
+  top: 50%;
+}
+
+.Bullet {
+  border: solid $orange 0.75vw;
+  background-color: $darkorange;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5vw;
+  height: 2.5vw;
+  box-shadow: 2px 2px 6px 2px black;
+}
+
+.Fired {
+  border: solid $black 2px;
+  background-color: $grey;
+  box-shadow: none;
+}

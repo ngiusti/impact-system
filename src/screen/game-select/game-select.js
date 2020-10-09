@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import Button from '../../components/UI/Button/Button'
+import Button from '../../components/UI/button/button'
 import * as actionTypes from '../../store/actions'
 import * as actionCreators from '../../store/actionCreators'
 import man from '../../assets/man-sil.png'
 
-import classes from './GameSelect.module.scss'
+import classes from './game-select.module.scss'
 
 class GameSelect extends Component {
 

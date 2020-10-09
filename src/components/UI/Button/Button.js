@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import classes from './Button.module.scss'
+import classes from './button.module.scss'
 
-const button = (props) => (
+const Button = (props) => (
     <Link to={props.linkTo}>
         <button className={[classes.Button, props.btnStyles].join(' ')} onClick={props.clicked} disabled={props.disabled}>
             {props.children}
@@ -10,4 +10,4 @@ const button = (props) => (
     </Link>
 )
 
-export default button
+export default Button

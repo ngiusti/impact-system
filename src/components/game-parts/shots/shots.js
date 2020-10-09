@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
 
-import classes from './Shots.module.scss'
+import classes from './shots.module.scss'
 
 
-export default class Shots extends Component {
+class Shots extends Component {
     render() {
         let shots=[]
         for (let j = 0; j < (this.props.shots - this.props.shotsRemaining); j++) {
@@ -25,3 +25,6 @@ export default class Shots extends Component {
         )
     }
 }
+
+
+export default Shots

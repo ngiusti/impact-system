@@ -1,0 +1,16 @@
+@import "../../styles/base.module.scss";
+
+.PlayersContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 90%;
+  margin: 5vw auto;
+}
+
+.Btn {
+  background-color: $orange;
+  color: $white;
+  width: 50%;
+  font-size: 30px;
+}

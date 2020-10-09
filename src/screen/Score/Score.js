@@ -4,11 +4,11 @@ import { connect } from 'react-redux'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import {ReactComponent as HelmetLogo} from '../../assets/helmet-logo.svg';
 import * as actionTypes from '../../store/actions'
-import Badge from '../../components/Badge/Badge'
-import Button from '../../components/UI/Button/Button'
-import ScrollingNumber from '../../components/UI/ScollingNumber/ScrollingNumber'
+import Badge from '../../components/badge/badge'
+import Button from '../../components/UI/button/button'
+import ScrollingNumber from '../../components/UI/scolling-number/scrolling-number'
 
-import classes from './Score.module.scss'
+import classes from './score.module.scss'
 
 
 class Score extends Component {

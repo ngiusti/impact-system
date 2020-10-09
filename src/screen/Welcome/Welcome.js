@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 
-import classes from  './Welcome.module.scss';
+import classes from  './welcome.module.scss';
 
-import Button from '../../components/UI/Button/Button'
-import Badge from '../../components/Badge/Badge'
+import Button from '../../components/UI/button/button'
+import Badge from '../../components/badge/badge'
 
-export default class Welcome extends Component {
+class Welcome extends Component {
 
     componentDidMount() {
         console.log('hello from welcome')
@@ -18,10 +18,12 @@ export default class Welcome extends Component {
                     <h1 className={classes.Title}>Impact System</h1>
                 </div>
                 <div>
-                    <Button btnStyles={classes.Button} linkTo="/GameSelect">Get Started</Button>
+                    <Button btnStyles={classes.Button} linkTo="/login">Get Started</Button>
                 </div>
                 <Badge/>
             </div>
         )
     }
 }
+
+export default Welcome

@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import Target from '../../assets/target.png'
-import Button from '../../components/UI/Button/Button'
-import Shots from '../../components/GameParts/Shots/Shots'
+import Button from '../../components/UI/button/button'
+import Shots from '../../components/game-parts/shots/shots'
 import * as actionTypes from '../../store/actions'
 
-import classes from './Game.module.scss'
+import classes from './game.module.scss'
 
 class Game extends Component {
     
@@ -15,13 +15,14 @@ class Game extends Component {
         gameDone: false,
         roundStart: false,
         shots: 0,
-        imageUrl: ""
+        imageUrl: "",
+        score: "",
     }
 
     componentDidMount() {
         fetch('/data').then(res => res.json()).then(data => {
             this.setState({shots: data.shots})
-
+            this.setState({score: data.score})
         });
         fetch('/image').then(res => res).then(image => {
             this.setState({imageUrl: image.url})
@@ -116,8 +117,9 @@ class Game extends Component {
     }
 
     render() {
-        console.log(this.state.shots);
-        console.log(this.state.imageUrl);
+        // console.log(this.state.shots);
+        // console.log(this.state.imageUrl);
+        // console.log(this.state.score);
         let playerList = this.props.players
         let currentPlayer = {}
         for (let index in playerList) {
@@ -148,7 +150,7 @@ class Game extends Component {
                         ))}
                     </div>
                     <div className={classes.playerCard}>
-                        <p className={classes.playerScore}>Score: {currentPlayer.score}</p>
+                        <p className={classes.playerScore}>Score: {this.state.score}</p>
                         <p className={classes.playerInfo}>Time: {this.getMin(this.state.timer)}:{this.getSeconds(this.state.timer)}</p>
                     </div>
                     <div>
