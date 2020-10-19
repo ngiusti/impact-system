@@ -12,11 +12,11 @@ export default class Login extends Component {
         return (
             <div>
                 <div className={classes.PlayersContainer}>
-                    <PlayerLogin player={"1"}/>
-                    <PlayerLogin player={"2"}/>
-                    <PlayerLogin player={"3"}/>
+                    <PlayerLogin player={"1"} />
+                    <PlayerLogin player={"2"} />
+                    <PlayerLogin player={"3"} />
                 </div>
-                <Slider title="Time" unit="Minutes"/>
+                <Slider title="Time" unit="Minutes" />
                 <Button linkTo="/GameSelect" btnStyles={classes.Btn}>Get Started</Button>
             </div>
         )

@@ -1,0 +1,25 @@
+@import "../../../styles/base.module.scss";
+
+.button {
+  border-radius: 10px;
+  padding: 10px;
+  border: none;
+  transition: all 0.5s;
+  text-transform: uppercase;
+  font-family: $BO;
+  font-size: 20px;
+  color: $orange;
+  background-color: $white;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.orange {
+  color: $white;
+  background-color: $orange;
+}
+
+.text {
+  color: $orange;
+  background-color: transparent;
+}

@@ -6,34 +6,7 @@
   padding: 2%;
 }
 
-.ButtonContainer {
-  display: flex;
-  flex-direction: column;
-}
-
 .PlayerHeader {
   font-size: 30px;
   margin: 20px 0;
-}
-
-.LoginBtn {
-  background-color: $orange;
-  color: $white;
-  margin: 5% 0;
-  width: 100%;
-}
-
-.GuestBtn {
-  background-color: $white;
-  color: $orange;
-  border: 1px solid $orange;
-  margin: 5% 0;
-  width: 100%;
-}
-
-.SignUpBtn {
-  background-color: transparent;
-  color: $orange;
-  margin: 5% 0;
-  width: 100%;
 }
